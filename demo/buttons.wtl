@@ -1,0 +1,4 @@
+_staticTextBtn.xpath=/html/body/button[1]
+_deleteStaticTextBtn.xpath=/html/body/button[2]
+_copyFromInputBtn.xpath=/html/body/button[3]
+_linkBtn.xpath=/html/body/button[4]

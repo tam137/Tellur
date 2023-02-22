@@ -1,0 +1,54 @@
+<html>
+
+    <head>
+        <title>Demo Page</title>
+    </head>
+
+    <body>
+
+        <script>
+            function loadStaticText() {
+                const data = document.getElementById('freeField1');
+                data.innerText = "This is a static text";
+            }
+
+            function deleteStaticText() {
+                const data = document.getElementById('freeField1');
+                data.innerText = "";
+            }
+
+            function copyText() {
+                const data = document.getElementById('freeField2');
+                data.innerText = document.getElementById('input1').value;
+            }
+
+        </script>
+
+        <p id="hw1">Hello World</p>
+
+        <input id="input1" type="text">
+
+
+        <button  type="button" onclick="loadStaticText()">
+            create static text
+        </button>
+
+        <button  type="button" onclick="deleteStaticText()">
+            delete static text
+        </button>
+
+        <button  type="button" onclick="copyText()">
+            copy from input
+        </button>
+
+        <button type="button" onclick="window.location.href='#page001';">
+            Click Here
+          </button>
+
+        <p id="freeField1">something</p>
+        <p id="freeField2"></p>
+        <p id="freeField3">anything</p>
+
+    </body>
+
+</html>

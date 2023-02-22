@@ -1,0 +1,126 @@
+
+## demo testfile
+
+
+# define your Webelements and include here
+# A Webelement can either be of of [label, button, input]
+# You can interact with them in a different way each, see below
+includeLabels "labels.wtl"
+includeButtons "buttons.wtl"
+includeInputs "inputs.wtl"
+
+# initialize variables, it can either be a String or a Number
+var testValueStaticText="This is a static text"
+var helloWorld="Hello World"
+var aNumber = 12
+# declare variables for later use
+# you can not declare variables within functions or testcases yet
+var number
+var shellValue
+var unAssigned_Test
+var concatVar
+
+
+# define Testcases with a name 'TC_001'
+testcase TC_001
+    # arg parameters a Stored in named variables $$__arg_[0-9]
+    # __arg_-Variables are consealed and will not apear in logs but are e.g. printable
+    # or can be processed anything else
+    # here the given param is used to call a website or more specific the demo.html file
+    navigateTo ($$__arg_1)
+    # function call 'verifyAll'
+    verifyAll()
+    # sh(cmd): calls a shell command, return screen output
+    # set String-variable shellValue to the output of your 'pwd'-cmd. Your output is 'stdout'
+    set (shellValue, sh("pwd"))
+    # print now the content of shellValue
+    # you can print any Type of Webelement as describet above and also your own Variables of any Type
+    print ($$shellValue)
+end ## return sucessfully
+
+# implement a function
+# a function has no defined parameter list, but you can also use parameters, see below
+function verifyAll
+    # verify some asumptions of your testing state
+    # if some fails, the Testcase where you call this function is failed
+    # you can check if you are on the right url
+    verifyUrlContains ($$__arg_1)
+    # you can check if there is a specific Web-Element present
+    verifyPresenceOf (_staticTextBtn)
+    verifyPresenceOf (_deleteStaticTextBtn)
+    verifyPresenceOf (_copyFromInputBtn)
+    verifyPresenceOf (_linkBtn)
+    # You can check that a Label contains a defined String
+    verifyLabelContains (_headValue, "Hello")
+    # or you can check it with a regex command
+    verifyLabelContainsRex (_headValue, ".*World")
+    # the end-cmd works onlx for 'testcase'
+ret () # 'ret'-cmd closes every function, it can return an Value or void like here
+
+testcase TC_002
+    navigateTo ($$__arg_1)
+    # click Button Elements defined in 'includeButtons "buttons.wtl"'
+    click (_staticTextBtn)
+    # you can verify the presence of any Webelement
+    verifyPresenceOf (_staticText)
+    # You can verify content of Labels defined in 'includeLabels "labels.wtl"'
+    verifyLabelContains (_staticText, $$testValueStaticText)
+    # refreshes you webpge
+    refresh ()
+    verifyLabelContains (_staticText, "something")
+end
+
+testcase TC_003
+    navigateTo ($$__arg_1)
+    # you can send Text to 'input'
+    send (_inputField, "Hi how are you")
+    # you can click on 'button'
+    click (_copyFromInputBtn)
+    verifyLabelContains (_varText, "Hi how are you")
+    verifyLabelContainsRex (_varText, "[\w\s]*you")
+end
+
+testcase TC_004
+    navigateTo ($$__arg_1)
+    click (_linkBtn)
+    verifyUrlContains ("page001")
+end
+
+testcase TC_005
+    # sleep pause you program for seconds
+    sleep (1)
+    print (printHelloWorld())
+    # print funktion can take a 'String' or a 'Number' variabel
+    print (doubleNumber($$aNumber))
+end
+
+testcase TC_006_failedExample
+    # for testing purposes: you cannot access an uninitialized variable
+    # testcase failed. Tellur goes ahead with next Testcase
+    print ($$unAssigned_Test)
+end
+
+testcase TC_007
+    # you can concatinate strings and number with 'con' command
+    set (concatVar, cat("Hello again "  , $$helloWorld, " also prints Numbers ", $$aNumber ))
+    print ($$concatVar)
+end
+
+testcase TC_008_failedExample
+    navigateTo ($$__arg_1)
+    # anySite.html is not part of our url
+    verifyUrlContains ("anySite.html")
+    # the test failed and following commands wil be ignored
+    print ("not printed this")
+end
+
+function printHelloWorld
+    # function return value
+ret ($$helloWorld)
+
+function doubleNumber
+    # varaible named $$[0-9] store you function parameter
+    # here it saves your first function Parameter ($$0) in you global variable 'number'
+    set (number, $$0)
+    # the addition function is the only arithmetic operation. It takes 2 parameters and adds them together
+ret (add ($$0, $$number))

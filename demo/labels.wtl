@@ -1,0 +1,3 @@
+_staticText.xpath=/html/body/p[2]
+_varText.id=freeField2
+_headValue.xpath=/html/body/p[1]

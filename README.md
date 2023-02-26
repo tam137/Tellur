@@ -42,9 +42,9 @@ WTL is lightweight and easy to integrate into your continuous integration and co
 ## WebElements
 
 WebElements are the building blocks of web automation tests in WTL. They are defined in the program in Webdefinition-Files and correspond to elements on a web page. WebElements can be of three types: 
-*label      A read-only element that displays text on a web page and can be checked for its output
-*button     A clickable element that executes a specific action
-*input      An element that accepts user input, such as text or numbers
+* label      A read-only element that displays text on a web page and can be checked for its output
+* button     A clickable element that executes a specific action
+* input      An element that accepts user input, such as text or numbers
 
 WebElements can be defined and included in a program using the includeLabels, includeButtons, and includeInputs commands. These commands allow the program to access the properties and methods of these elements.
 

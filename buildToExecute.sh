@@ -5,6 +5,7 @@ WORKDIR=$PWD
 
 if [ -z "${TELLUR_HOME}" ]; then
   echo "TELLUR_HOME is not set."
+  exit 0
 fi
 
 mkdir "${TELLUR_HOME}"

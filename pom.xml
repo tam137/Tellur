@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>com.tam</groupId>
 	<artifactId>tellur</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>Selenium</name>
 	<description>Tellur Interpreter for Web Testing Language</description>
 	<properties>

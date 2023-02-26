@@ -77,33 +77,41 @@ public class Parser {
     }
 
     void findAndReadInputFieldsFile(String path) throws IOException {
-        Files.readAllLines(Paths.get(path)).forEach(line -> {
-            if (line.startsWith("#")) {
-                // is comment, ignore..
-            } else if (line.isEmpty()) {
-                // empty, ignore..
-            } else {
-                addBaseElemToList(new InputElem(
-                    line.split("\\.")[0],
-                    AccessMethode.valueOf(line.split("\\.")[1].split("=")[0]),
-                    line.substring(line.replaceAll("\"", "\\\"").indexOf('=')+1)));
-            }
-        });
+        try {
+            Files.readAllLines(Paths.get(path)).forEach(line -> {
+                if (line.startsWith("#")) {
+                    // is comment, ignore..
+                } else if (line.isEmpty()) {
+                    // empty, ignore..
+                } else {
+                    addBaseElemToList(new InputElem(
+                        line.split("\\.")[0],
+                        AccessMethode.valueOf(line.split("\\.")[1].split("=")[0]),
+                        line.substring(line.replaceAll("\"", "\\\"").indexOf('=')+1)));
+                }
+            });
+        } catch (NoSuchFileException e) {
+            throw new NoSuchFileException("Webdefinition file " + path + " not found");
+        }
     }
 
     void findAndReadButtonFile(String path) throws IOException {
-        Files.readAllLines(Paths.get(path)).forEach(line -> {
-            if (line.startsWith("#")) {
-                // is comment, ignore..
-            } else if (line.isEmpty()) {
-                // empty, ignore..
-            } else {
-                addBaseElemToList(new ButtonElem(
-                    line.split("\\.")[0],
-                    AccessMethode.valueOf(line.split("\\.")[1].split("=")[0]),
-                    line.substring(line.replaceAll("\"", "\\\"").indexOf('=')+1)));
-            }
-        });
+        try {
+            Files.readAllLines(Paths.get(path)).forEach(line -> {
+                if (line.startsWith("#")) {
+                    // is comment, ignore..
+                } else if (line.isEmpty()) {
+                    // empty, ignore..
+                } else {
+                    addBaseElemToList(new ButtonElem(
+                        line.split("\\.")[0],
+                        AccessMethode.valueOf(line.split("\\.")[1].split("=")[0]),
+                        line.substring(line.replaceAll("\"", "\\\"").indexOf('=')+1)));
+                }
+            });
+        } catch (NoSuchFileException e) {
+            throw new NoSuchFileException("Webdefinition file " + path + " not found");
+        }
     }
 
     void findAndReadLabelFile(String path) throws IOException {
@@ -114,7 +122,8 @@ public class Parser {
                 } else if (line.isEmpty()) {
                     // empty, ignore..
                 } else {
-                    addBaseElemToList(new LabelElem(line.split("\\.")[0], AccessMethode.valueOf(line.split("\\.")[1].split("=")[0]),
+                    addBaseElemToList(new LabelElem(line.split("\\.")[0],
+                        AccessMethode.valueOf(line.split("\\.")[1].split("=")[0]),
                         line.substring(line.replaceAll("\"", "\\\"").indexOf('=') + 1)));
                 }
             });
